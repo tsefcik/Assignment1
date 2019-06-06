@@ -2,62 +2,65 @@ import pandas as pd
 from sklearn import preprocessing
 
 
-class Iris:
+class Glass:
     pd.set_option('display.max_columns', 40)
     pd.set_option('display.width', 3000)
 
-    iris_names = ["sepal length", "sepal width", "petal length", "petal width", "class"]
-    class_we_want = "Iris-virginica"
+    glass_names = ["Id", "RI", "Na", "Mg", "Al", "Si", "K", "Ca", "Ba", "Fe", "Type of glass"]
+    class_we_want = 3
 
-    def setup_data_iris(self):
+    def setup_data_glass(self):
         # Read in data file and turn into data structure
-        iris = pd.read_csv("data/iris.data",
+        glass = pd.read_csv("data/glass.data",
                            sep=",",
                            header=0,
-                           names=self.iris_names)
-        print(iris)  # Show data
+                           names=self.glass_names)
+        print("Initial data frame:\n")
+        print(glass)  # Show data
 
         # Make categorical column a binary for the class we want to use
-        for index, row in iris.iterrows():
-            if iris["class"][index] == self.class_we_want:
-                iris.at[index, "class"] = 1
+        for index, row in glass.iterrows():
+            if glass["Type of glass"][index] > self.class_we_want:
+                glass.at[index, "Type of glass"] = 1
             else:
-                iris.at[index, "class"] = 0
-        print(iris)  # Show data
+                glass.at[index, "Type of glass"] = 0
+        print("Updated data frame with categorical change:\n")
+        print(glass)  # Show data
 
         # Get copy of data with columns that will be normalized
-        new_iris = iris[iris.columns[0:4]]
+        new_glass = glass[glass.columns[1:10]]
         # Normalize data with sklearn MinMaxScaler
         scaler = preprocessing.MinMaxScaler()
-        iris_scaled_data = scaler.fit_transform(new_iris)
-        # Remove "class" column for now since that column will not be normalized
-        self.iris_names.remove("class")
-        iris_scaled_data = pd.DataFrame(iris_scaled_data, columns=self.iris_names)
-        # Add "class" column back to our column list
-        self.iris_names.append("class")
+        glass_scaled_data = scaler.fit_transform(new_glass)
+        # Remove "Type of glass" column for now since that column will not be normalized
+        self.glass_names.remove("Type of glass")
+        # Remove "Id number" column for now since that column will not be normalized
+        self.glass_names.remove("Id")
+        glass_scaled_data = pd.DataFrame(glass_scaled_data, columns=self.glass_names)
+        # Add "Type of glass" column back to our column list
+        self.glass_names.append("Type of glass")
 
-        # Add "class" column into normalized data structure, then categorize it into integers
-        iris_scaled_data["class"] = iris[["class"]]
-        print(iris_scaled_data)  # Show data
+        # Add "Type of glass" column into normalized data structure, then categorize it into integers
+        glass_scaled_data["Type of glass"] = glass[["Type of glass"]]
+        print("Scaled data:\n")
+        print(glass_scaled_data)  # Show data
 
         # Get mean of each column that will help determine what binary value to turn each into
-        iris_means = iris_scaled_data.mean()
-        print(iris_means)  # Show means
+        glass_means = glass_scaled_data.mean()
+        print("Means:\n")
+        print(glass_means)  # Show means
 
         # Make categorical column a binary for the class we want to use
-        for index, row in iris_scaled_data.iterrows():
-            for column in self.iris_names:
+        for index, row in glass_scaled_data.iterrows():
+            for column in self.glass_names:
                 # If the data value is greater than the mean of the column, make it a 1
-                if iris_scaled_data[column][index] > iris_means[column]:
-                    iris_scaled_data.at[index, column] = 1
+                if glass_scaled_data[column][index] > glass_means[column]:
+                    glass_scaled_data.at[index, column] = 1
                 # Otherwise make it a 0 since it is less than the mean
                 else:
-                    iris_scaled_data.at[index, column] = 0
-        print(iris_scaled_data)  # Show data
+                    glass_scaled_data.at[index, column] = 0
+        print("One hot encoded data frame:\n")
+        print(glass_scaled_data)  # Show data
 
-        # Return scaled data structure
-        return iris_scaled_data
-
-
-data = Iris()
-iris = data.setup_data_iris()
+        # Return one hot encoded data frame
+        return glass_scaled_data
