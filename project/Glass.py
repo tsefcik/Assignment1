@@ -62,5 +62,8 @@ class Glass:
         print("One hot encoded data frame:\n")
         print(glass_scaled_data)  # Show data
 
+        # Add column back in bc it was throwing an error on the iterations of running the winnow alg
+        self.glass_names.insert(0, "Id")
+
         # Return one hot encoded data frame
         return glass_scaled_data

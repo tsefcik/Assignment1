@@ -8,19 +8,19 @@ class Soybean:
     pd.set_option('display.max_columns', 40)
     pd.set_option('display.width', 3000)
 
-    soybean_names = []
     class_we_want = "D3"
 
     def setup_data_soybean(self):
+        soybean_names = []
         # Fill soybean_names with column indexes
         for number in range(0, 36):
-            self.soybean_names.append(str(number))
+            soybean_names.append(str(number))
 
         # Read in data file and turn into data structure
         soybean = pd.read_csv("data/soybean-small.data",
                               sep=",",
                               header=0,
-                              names=self.soybean_names)
+                              names=soybean_names)
         print("Initial data frame:\n")
         print(soybean)  # Show data
 
@@ -39,10 +39,10 @@ class Soybean:
         scaler = preprocessing.MinMaxScaler()
         soybean_scaled_data = scaler.fit_transform(new_soybean)
         # Remove "class" column for now since that column will not be normalized
-        self.soybean_names.remove("35")
-        soybean_scaled_data = pd.DataFrame(soybean_scaled_data, columns=self.soybean_names)
+        soybean_names.remove("35")
+        soybean_scaled_data = pd.DataFrame(soybean_scaled_data, columns=soybean_names)
         # Add "class" column back to our column list
-        self.soybean_names.append("35")
+        soybean_names.append("35")
 
         # Add "class" column into normalized data structure, then categorize it into integers
         soybean_scaled_data["35"] = soybean[["35"]]
@@ -56,7 +56,7 @@ class Soybean:
 
         # Make categorical column a binary for the class we want to use
         for index, row in soybean_scaled_data.iterrows():
-            for column in self.soybean_names:
+            for column in soybean_names:
                 # If the data value is greater than the mean of the column, make it a 1
                 if soybean_scaled_data[column][index] > soybean_means[column]:
                     soybean_scaled_data.at[index, column] = 1

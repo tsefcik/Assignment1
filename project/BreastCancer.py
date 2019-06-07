@@ -79,5 +79,8 @@ class BreastCancer:
         print("One hot encoded data frame:\n")
         print(breast_cancer_scaled_data)  # Show data
 
+        # Add column back in bc it was throwing an error on the iterations of running the winnow alg
+        self.breast_cancer_names.insert(0, "Sample code number")
+
         # Return one hot encoded data frame
         return breast_cancer_scaled_data

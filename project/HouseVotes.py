@@ -61,7 +61,7 @@ class HouseVotes:
         self.votes_names.remove("class")
         votes_scaled_data = pd.DataFrame(votes_scaled_data, columns=self.votes_names)
         # Add "class" column back to our column list
-        self.votes_names.append("class")
+        self.votes_names.insert(0, "class")
 
         # Add "class" column into normalized data structure, then categorize it into integers
         votes_scaled_data["class"] = votes[["class"]]

@@ -57,6 +57,7 @@ class Iris:
                 # Otherwise make it a 0 since it is less than the mean
                 else:
                     iris_scaled_data.at[index, column] = 0
+
         print("One hot encoded data frame:\n")
         print(iris_scaled_data)  # Show data
 
