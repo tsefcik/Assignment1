@@ -8,7 +8,7 @@ from project import HouseVotes as votes
 from project import Algorithms as alg
 
 
-def run_iris():
+def run_winnow_iris():
     success_rate = 0
 
     for index in range(0, 50):
@@ -24,7 +24,7 @@ def run_iris():
     print("Average Winnow-2 success rate is: " + str(success_rate) + "%")
 
 
-def run_glass():
+def run_winnow_glass():
     success_rate = 0
 
     for index in range(0, 50):
@@ -40,7 +40,7 @@ def run_glass():
     print("Average Winnow-2 success rate is: " + str(success_rate) + "%")
 
 
-def run_bc():
+def run_winnow_bc():
     success_rate = 0
 
     for index in range(0, 50):
@@ -56,7 +56,7 @@ def run_bc():
     print("Average Winnow-2 success rate is: " + str(success_rate) + "%")
 
 
-def run_soybean():
+def run_winnow_soybean():
     success_rate = 0
 
     for index in range(0, 50):
@@ -72,7 +72,7 @@ def run_soybean():
     print("Average Winnow-2 success rate is: " + str(success_rate) + "%")
 
 
-def run_votes():
+def run_winnow_votes():
     success_rate = 0
 
     for index in range(0, 50):
@@ -88,14 +88,33 @@ def run_votes():
     print("Average Winnow-2 success rate is: " + str(success_rate) + "%")
 
 
-def main():
-    ### Winnow-2 ###
-    # run_iris()
-    # run_glass()
-    # run_bc()
-    # run_soybean()
-    # run_votes()
+def run_naive_bayes_iris():
+    success_rate = 0
 
+    # for index in range(0, 50):
+    iris_obj = iris.Iris()
+    iris_data = iris_obj.setup_data_iris()
+    winnow = alg.Algorithms()
+    iris_data_train = iris_data.sample(frac=.667)
+    iris_data_test = iris_data.drop(iris_data_train.index)
+    trainer_classifier = winnow.naive_bayes(iris_data_train.iloc[:, 0:4], iris_data_train["class"])
+    # test_classifier = winnow.naive_bayes_test(iris_data_test.iloc[:, 0:4], 2, trainer_classifier)
+    # success_rate = success_rate + winnow.compare_prediction(test_classifier, iris_data_test["class"])
+
+# success_rate = success_rate / 50
+# print("Average Naive Bayes success rate is: " + str(success_rate) + "%")
+
+
+def main():
+    # Winnow-2
+    # run_winnow_iris()
+    # run_winnow_glass()
+    # run_winnow_bc()
+    # run_winnow_soybean()
+    # run_winnow_votes()
+
+    # Naive Bayes
+    run_naive_bayes_iris()
 
 
 if __name__ == "__main__":

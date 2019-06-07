@@ -1,4 +1,6 @@
 from builtins import print
+import pandas as pd
+import numpy as np
 
 
 class Algorithms:
@@ -53,6 +55,22 @@ class Algorithms:
 
         print(predict_classifier)
         return predict_classifier
+
+    def naive_bayes(self, data, predicted):
+        output = pd.DataFrame(index=np.arange(4), columns=np.arange(1))
+        overall_mean = np.mean(predicted)
+        print(overall_mean)
+
+        output.insert(1, 1, 1-overall_mean, allow_duplicates=True)
+        output.insert(2, 1, 1 - overall_mean, allow_duplicates=True)
+        output.insert(3, 1, overall_mean, allow_duplicates=True)
+        output.insert(4, 1, overall_mean, allow_duplicates=True)
+
+
+
+
+        print(output)
+
 
     def compare_prediction(self, predict_classier, data):
         success = 0
