@@ -57,20 +57,30 @@ class Algorithms:
         return predict_classifier
 
     def naive_bayes(self, data, predicted):
-        output = pd.DataFrame(index=np.arange(4), columns=np.arange(1))
+        output = pd.DataFrame(index=np.arange(4), columns=np.arange(0))
         overall_mean = np.mean(predicted)
         print(overall_mean)
 
-        output.insert(1, 1, 1-overall_mean, allow_duplicates=True)
-        output.insert(2, 1, 1 - overall_mean, allow_duplicates=True)
-        output.insert(3, 1, overall_mean, allow_duplicates=True)
-        output.insert(4, 1, overall_mean, allow_duplicates=True)
-
-
-
+        output.insert(0, 0, 1-overall_mean, allow_duplicates=True)
+        output.insert(1, 1, 1 - overall_mean, allow_duplicates=True)
+        output.insert(2, 2, overall_mean, allow_duplicates=True)
+        output.insert(3, 3, overall_mean, allow_duplicates=True)
 
         print(output)
 
+        class_false = data[predicted == 0]
+        class_true = data[predicted == 1]
+        print(class_false)
+        print(class_true)
+
+        # smooth = [.5] * (class_false.shape[1])
+        # print(smooth)
+        #
+        # class_false.append(smooth, ignore_index=True)
+        # class_true.append(smooth, ignore_index=True)
+        #
+        # print(class_false)
+        # print(class_true)
 
     def compare_prediction(self, predict_classier, data):
         success = 0
