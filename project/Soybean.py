@@ -23,6 +23,7 @@ class Soybean:
                               names=soybean_names)
         print("Initial data frame:\n")
         print(soybean)  # Show data
+        print()
 
         # Make categorical column a binary for the class we want to use
         for index, row in soybean.iterrows():
@@ -32,6 +33,7 @@ class Soybean:
                 soybean.at[index, "35"] = 0
         print("Updated data frame with categorical change:\n")
         print(soybean)  # Show data
+        print()
 
         # Get copy of data with columns that will be normalized
         new_soybean = soybean[soybean.columns[0:35]]
@@ -48,11 +50,13 @@ class Soybean:
         soybean_scaled_data["35"] = soybean[["35"]]
         print("Scaled data:\n")
         print(soybean_scaled_data)  # Show data
+        print()
 
         # Get mean of each column that will help determine what binary value to turn each into
         soybean_means = soybean_scaled_data.mean()
         print("Means:\n")
         print(soybean_means)  # Show means
+        print()
 
         # Make categorical column a binary for the class we want to use
         for index, row in soybean_scaled_data.iterrows():
@@ -65,6 +69,7 @@ class Soybean:
                     soybean_scaled_data.at[index, column] = 0
         print("One hot encoded data frame:\n")
         print(soybean_scaled_data)  # Show data
+        print()
 
         # Return one hot encoded data frame
         return soybean_scaled_data

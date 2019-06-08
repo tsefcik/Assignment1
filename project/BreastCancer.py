@@ -19,6 +19,7 @@ class BreastCancer:
                                     names=self.breast_cancer_names)
         print("Initial data frame:\n")
         print(breast_cancer)  # Show data
+        print()
 
         # Keep track of rows to drop with missing data
         rows_to_drop = []
@@ -34,6 +35,7 @@ class BreastCancer:
         # Show data
         print("Updated data frame without missing data:\n")
         print(breast_cancer)
+        print()
 
         # Make categorical column a binary for the class we want to use
         for index, row in breast_cancer.iterrows():
@@ -43,6 +45,7 @@ class BreastCancer:
                 breast_cancer.at[index, "Class"] = 0
         print("Updated data frame with categorical change:\n")
         print(breast_cancer)  # Show data
+        print()
 
         # Get copy of data with columns that will be normalized
         new_breast_cancer = breast_cancer[breast_cancer.columns[1:10]]
@@ -61,11 +64,13 @@ class BreastCancer:
         breast_cancer_scaled_data["Class"] = breast_cancer[["Class"]]
         print("Scaled data:\n")
         print(breast_cancer_scaled_data)  # Show data
+        print()
 
         # Get mean of each column that will help determine what binary value to turn each into
         breast_cancer_means = breast_cancer_scaled_data.mean()
         print("Means:\n")
         print(breast_cancer_means)  # Show means
+        print()
 
         # Make categorical column a binary for the class we want to use
         for index, row in breast_cancer_scaled_data.iterrows():
@@ -78,6 +83,7 @@ class BreastCancer:
                     breast_cancer_scaled_data.at[index, column] = 0
         print("One hot encoded data frame:\n")
         print(breast_cancer_scaled_data)  # Show data
+        print()
 
         # Add column back in bc it was throwing an error on the iterations of running the winnow alg
         self.breast_cancer_names.insert(0, "Sample code number")

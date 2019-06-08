@@ -17,6 +17,7 @@ class Glass:
                            names=self.glass_names)
         print("Initial data frame:\n")
         print(glass)  # Show data
+        print()
 
         # Make categorical column a binary for the class we want to use
         for index, row in glass.iterrows():
@@ -26,6 +27,7 @@ class Glass:
                 glass.at[index, "Type of glass"] = 0
         print("Updated data frame with categorical change:\n")
         print(glass)  # Show data
+        print()
 
         # Get copy of data with columns that will be normalized
         new_glass = glass[glass.columns[1:10]]
@@ -44,11 +46,13 @@ class Glass:
         glass_scaled_data["Type of glass"] = glass[["Type of glass"]]
         print("Scaled data:\n")
         print(glass_scaled_data)  # Show data
+        print()
 
         # Get mean of each column that will help determine what binary value to turn each into
         glass_means = glass_scaled_data.mean()
         print("Means:\n")
         print(glass_means)  # Show means
+        print()
 
         # Make categorical column a binary for the class we want to use
         for index, row in glass_scaled_data.iterrows():
@@ -61,6 +65,7 @@ class Glass:
                     glass_scaled_data.at[index, column] = 0
         print("One hot encoded data frame:\n")
         print(glass_scaled_data)  # Show data
+        print()
 
         # Add column back in bc it was throwing an error on the iterations of running the winnow alg
         self.glass_names.insert(0, "Id")

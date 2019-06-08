@@ -94,15 +94,15 @@ def run_naive_bayes_iris():
     # for index in range(0, 50):
     iris_obj = iris.Iris()
     iris_data = iris_obj.setup_data_iris()
-    winnow = alg.Algorithms()
+    naive = alg.Algorithms()
     iris_data_train = iris_data.sample(frac=.667)
     iris_data_test = iris_data.drop(iris_data_train.index)
-    trainer_classifier = winnow.naive_bayes(iris_data_train.iloc[:, 0:4], iris_data_train["class"])
-    # test_classifier = winnow.naive_bayes_test(iris_data_test.iloc[:, 0:4], 2, trainer_classifier)
-    # success_rate = success_rate + winnow.compare_prediction(test_classifier, iris_data_test["class"])
+    trainer_classifier = naive.naive_bayes_train(iris_data_train.iloc[:, 0:4], iris_data_train["class"])
+    test_classifier = naive.naive_bayes_test(iris_data_test.iloc[:, 0:4], trainer_classifier)
+    success_rate = naive.compare_prediction(test_classifier, iris_data_test["class"])
 
-# success_rate = success_rate / 50
-# print("Average Naive Bayes success rate is: " + str(success_rate) + "%")
+#   success_rate = success_rate / 50
+    print("Average Naive Bayes success rate is: " + str(success_rate) + "%")
 
 
 def main():

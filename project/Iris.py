@@ -17,6 +17,7 @@ class Iris:
                            names=self.iris_names)
         print("Initial data frame:\n")
         print(iris)  # Show data
+        print()
 
         # Make categorical column a binary for the class we want to use
         for index, row in iris.iterrows():
@@ -26,6 +27,7 @@ class Iris:
                 iris.at[index, "class"] = 0
         print("Updated data frame with categorical change:\n")
         print(iris)  # Show data
+        print()
 
         # Get copy of data with columns that will be normalized
         new_iris = iris[iris.columns[0:4]]
@@ -42,11 +44,13 @@ class Iris:
         iris_scaled_data["class"] = iris[["class"]]
         print("Scaled data:\n")
         print(iris_scaled_data)  # Show data
+        print()
 
         # Get mean of each column that will help determine what binary value to turn each into
         iris_means = iris_scaled_data.mean()
         print("Means:\n")
         print(iris_means)  # Show means
+        print()
 
         # Make categorical column a binary for the class we want to use
         for index, row in iris_scaled_data.iterrows():
@@ -60,6 +64,7 @@ class Iris:
 
         print("One hot encoded data frame:\n")
         print(iris_scaled_data)  # Show data
+        print()
 
         # Return one hot encoded data frame
         return iris_scaled_data

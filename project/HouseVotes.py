@@ -19,6 +19,7 @@ class HouseVotes:
                             names=self.votes_names)
         print("Initial data frame:\n")
         print(votes)  # Show data
+        print()
 
         # Keep track of rows to drop with missing data
         rows_to_drop = []
@@ -34,6 +35,7 @@ class HouseVotes:
         # Show data
         print("Updated data frame without missing data:\n")
         print(votes)
+        print()
 
         # Make categorical column a binary for the class we want to use
         for index, row in votes.iterrows():
@@ -51,6 +53,7 @@ class HouseVotes:
                     votes.at[index, column] = 0
         print("Updated data frame with categorical change:\n")
         print(votes)  # Show data
+        print()
 
         # Get copy of data with columns that will be normalized
         new_votes = votes[votes.columns[1:17]]
@@ -67,11 +70,13 @@ class HouseVotes:
         votes_scaled_data["class"] = votes[["class"]]
         print("Scaled data:\n")
         print(votes_scaled_data)  # Show data
+        print()
 
         # Get mean of each column that will help determine what binary value to turn each into
         votes_means = votes_scaled_data.mean()
         print("Means:\n")
         print(votes_means)  # Show means
+        print()
 
         # Make categorical column a binary for the class we want to use
         for index, row in votes_scaled_data.iterrows():
@@ -84,6 +89,7 @@ class HouseVotes:
                     votes_scaled_data.at[index, column] = 0
         print("One hot encoded data frame:\n")
         print(votes_scaled_data)  # Show data
+        print()
 
         # Return one hot encoded data frame
         return votes_scaled_data

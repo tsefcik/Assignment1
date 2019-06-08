@@ -56,15 +56,18 @@ class Algorithms:
         print(predict_classifier)
         return predict_classifier
 
-    def naive_bayes(self, data, predicted):
-        output = pd.DataFrame(index=np.arange(4), columns=np.arange(0))
+    def naive_bayes_train(self, data, predicted):
+
+        col_list = list(data.columns)
+        col_list.insert(0, "Overall Mean")
+        output = pd.DataFrame(columns=[col_list])
         overall_mean = np.mean(predicted)
         print(overall_mean)
 
-        output.insert(0, 0, 1-overall_mean, allow_duplicates=True)
-        output.insert(1, 1, 1 - overall_mean, allow_duplicates=True)
-        output.insert(2, 2, overall_mean, allow_duplicates=True)
-        output.insert(3, 3, overall_mean, allow_duplicates=True)
+        output.loc[0] = (1-overall_mean)
+        output.loc[1] = (1 - overall_mean)
+        output.loc[2] = overall_mean
+        output.loc[3] = overall_mean
 
         print(output)
 
@@ -73,14 +76,68 @@ class Algorithms:
         print(class_false)
         print(class_true)
 
-        # smooth = [.5] * (class_false.shape[1])
-        # print(smooth)
-        #
-        # class_false.append(smooth, ignore_index=True)
-        # class_true.append(smooth, ignore_index=True)
-        #
-        # print(class_false)
-        # print(class_true)
+        new_row = [.5] * (class_false.shape[1])
+
+        class_false = class_false.append(pd.Series(new_row, index=class_false.columns), ignore_index=True)
+        class_true = class_true.append(pd.Series(new_row, index=class_true.columns), ignore_index=True)
+        print(class_false)
+        print(class_true)
+
+        class_false_means = class_false.mean()
+        class_true_means = class_true.mean()
+        print(class_false_means)
+        print(class_true_means)
+
+        adjusted_false = 1 - class_false_means
+        print(adjusted_false)
+
+        adjusted_true = 1 - class_true_means
+        print(adjusted_true)
+
+        for col in col_list:
+            if col != "Overall Mean":
+                output.loc[0, col] = adjusted_false[col]
+                output.loc[1, col] = class_false_means[col]
+                output.loc[2, col] = adjusted_true[col]
+                output.loc[3, col] = class_true_means[col]
+
+        print(output)
+
+        return output
+
+    def naive_bayes_test(self, data, mean_matrix):
+        predictions = []
+        for index, row in data.iterrows():
+            class_false = [0] * (len(data.columns) + 1)
+            class_false[0] = mean_matrix.iloc[0, 0]
+            class_true = [0] * (len(data.columns) + 1)
+            class_true[0] = mean_matrix.iloc[0, 0]
+
+            for index2 in range(len(data.columns)):
+                if row[index2] == 1:
+                    class_false[index2 + 1] = mean_matrix.iloc[1, index2 + 1]
+                    class_true[index2 + 1] = mean_matrix.iloc[3, index2 + 1]
+                else:
+                    class_false[index2 + 1] = mean_matrix.iloc[1, index2 + 1]
+                    class_true[index2 + 1] = mean_matrix.iloc[3, index2 + 1]
+
+            class_false_product = np.product(class_false)
+            class_true_product = np.product(class_true)
+
+            print(class_false_product)
+            print(class_true_product)
+
+            if class_false_product < class_true_product:
+                predictions.append(1)
+            else:
+                predictions.append(0)
+
+        print(predictions)
+        print(len(predictions))
+
+
+
+
 
     def compare_prediction(self, predict_classier, data):
         success = 0
