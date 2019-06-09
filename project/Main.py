@@ -7,7 +7,7 @@ from project import HouseVotes as votes
 from project import Algorithms as alg
 import sys
 
-
+# Winnow for Iris
 def run_winnow_iris():
     success_rate = 0
     # Provide 25 iterations
@@ -31,6 +31,7 @@ def run_winnow_iris():
     return success_rate
 
 
+# Winnow for Glass
 def run_winnow_glass():
     success_rate = 0
     # Provide 25 iterations
@@ -54,6 +55,7 @@ def run_winnow_glass():
     return success_rate
 
 
+# Winnow for Breast Cancer
 def run_winnow_bc():
     success_rate = 0
     # Provide 25 iterations
@@ -77,6 +79,7 @@ def run_winnow_bc():
     return success_rate
 
 
+# Winnow for Soybean
 def run_winnow_soybean():
     success_rate = 0
     # Provide 25 iterations
@@ -100,6 +103,7 @@ def run_winnow_soybean():
     return success_rate
 
 
+# Winnow for House Votes
 def run_winnow_votes():
     success_rate = 0
     # Provide 25 iterations
@@ -123,6 +127,7 @@ def run_winnow_votes():
     return success_rate
 
 
+# Naive Bayes for Iris
 def run_naive_bayes_iris():
     success_rate = 0
     # Provide 25 iterations
@@ -147,6 +152,7 @@ def run_naive_bayes_iris():
     return success_rate
 
 
+# Naive Bayes for Glass
 def run_naive_bayes_glass():
     success_rate = 0
     # Provide 25 iterations
@@ -171,6 +177,7 @@ def run_naive_bayes_glass():
     return success_rate
 
 
+# Naive Bayes for Breast Cancer
 def run_naive_bayes_bc():
     success_rate = 0
     # Provide 25 iterations
@@ -195,6 +202,7 @@ def run_naive_bayes_bc():
     return success_rate
 
 
+# Naive Bayes for Soybean
 def run_naive_bayes_soybean():
     success_rate = 0
     # Provide 25 iterations
@@ -219,6 +227,7 @@ def run_naive_bayes_soybean():
     return success_rate
 
 
+# Naive Bayes for House Votes
 def run_naive_bayes_votes():
     success_rate = 0
     # Provide 25 iterations
@@ -244,9 +253,11 @@ def run_naive_bayes_votes():
     return success_rate
 
 
+# Main driver to run all algorithms on each dataset
 def main():
     # Print all output to file
-    sys.stdout = open("./Assignment1Output.txt", "w")
+    # Comment out for printing in console
+    # sys.stdout = open("./Assignment1Output.txt", "w")
 
     # Winnow-2
     winnow_iris = run_winnow_iris()
@@ -266,6 +277,7 @@ def main():
 
     average_naive_combined = (naive_iris + naive_glass + naive_bc + naive_soy + naive_votes) / 5
 
+    # Statistics from algorithm testing
     print("Overall statistics")
     print()
     print("Winnow-2 iris: " + str(winnow_iris) + "%")
