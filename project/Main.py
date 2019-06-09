@@ -1,11 +1,11 @@
 from builtins import print
-
 from project import Iris as iris
 from project import Glass as glass
 from project import BreastCancer as bc
 from project import Soybean as soy
 from project import HouseVotes as votes
 from project import Algorithms as alg
+import sys
 
 
 def run_winnow_iris():
@@ -240,10 +240,14 @@ def run_naive_bayes_votes():
 
     success_rate = success_rate / 25
     print("Average Naive Bayes success rate is: " + str(success_rate) + "%")
+    print()
     return success_rate
 
 
 def main():
+    # Print all output to file
+    sys.stdout = open("./Assignment1Output.txt", "w")
+
     # Winnow-2
     winnow_iris = run_winnow_iris()
     winnow_glass = run_winnow_glass()
